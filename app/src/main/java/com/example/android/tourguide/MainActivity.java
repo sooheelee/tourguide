@@ -1,6 +1,7 @@
 package com.example.android.tourguide;
 
-import android.app.FragmentManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +23,21 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
+    private GoogleMap mMap;
     SupportMapFragment sMapFragment;
+    //    String[] practiceObject = SOMETHING;
+    public static ArrayList<Attraction> brewsArrayList;
+    public static ArrayList<Attraction> attractionsArrayList;
 
-    public static MapsActivity mMap;
+    //    public static MapsActivity mMap;
     NavigationView navigationView = null;
     Toolbar toolbar = null;
+//    String[] SOMETHING = {"Yo", "Yo", "Ma", "20.0248", "-155.6615"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +45,11 @@ public class MainActivity extends AppCompatActivity
 
         sMapFragment = SupportMapFragment.newInstance();
 
+        android.support.v4.app.FragmentManager sFragmentManager = getSupportFragmentManager();
+        if (!sMapFragment.isAdded())
+            sFragmentManager.beginTransaction().add(R.id.map, sMapFragment).commit();
+
         setContentView(R.layout.activity_main);
-
-        // TODO: Plop a pin down on the map
-//        BrewsFragment fragment = new BrewsFragment();
-////        MapsActivity mapFragment = new MapsActivity();
-//        android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.map, fragment);
-//        fragmentTransaction.commit();
-
-//        ViewPager viewPager = findViewById(R.id.viewpager);
-//        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager());
-//        viewPager.setAdapter(adapter);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,8 +109,8 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        FragmentManager fragmentManager = getFragmentManager();
         android.support.v4.app.FragmentManager sFragmentManager = getSupportFragmentManager();
+        mMap.clear();
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
@@ -117,23 +118,39 @@ public class MainActivity extends AppCompatActivity
         if (sMapFragment.isAdded())
             sFragmentManager.beginTransaction().hide(sMapFragment).commit();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.category_snorkel_spots) {
 
             if (!sMapFragment.isAdded())
                 sFragmentManager.beginTransaction().add(R.id.map, sMapFragment).commit();
             else
                 sFragmentManager.beginTransaction().show(sMapFragment).commit();
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.category_national_parks) {
+            sFragmentManager.beginTransaction().remove(sMapFragment).commit();
+            sFragmentManager.beginTransaction().add(R.id.map, new BrewsFragment()).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.category_poke) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.category_local_brews) {
+            BrewsFragment.newInstance();
+            Log.i("brews_category", "BREWS: " + brewsArrayList.toString());
 
-        } else if (id == R.id.nav_share) {
+            int count = 0;
+            int arrayListSize = brewsArrayList.size();
+            while (arrayListSize > count) {
+                Log.i("brew_category", "BREWS COUNT " + Integer.valueOf(count).toString());
+                count++;
+            }
 
-        } else if (id == R.id.nav_send) {
+            for (Attraction attraction : brewsArrayList) {
+            }
 
+        } else if (id == R.id.category_luau) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gohawaii.com/islands/hawaii-big-island/things-to-do/land-activities/Luau"));
+            startActivity(intent);
+        } else if (id == R.id.category_lava_activity) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://volcanoes.usgs.gov/volcanoes/kilauea/multimedia_maps.html"));
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -143,9 +160,39 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.i("onMapReady", "MAP IS READY");
+        mMap = googleMap;
+        setUpMap();
+    }
 
-        LatLng bigisland = new LatLng(19.5429, -155.6659);
-        googleMap.addMarker(new MarkerOptions().position(bigisland).title("Island of Hawaii").snippet("")).showInfoWindow();
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(bigisland));
+    public void setUpMap() {
+        Log.i("setUpMap", "MAP IS SETTING UP");
+        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mMap.setMinZoomPreference(9);
+
+        LatLng bigIsland = new LatLng(19.5429, -155.6659);
+        mMap.addMarker(new MarkerOptions().position(bigIsland).title("Island of Hawaii").snippet("YO!")).showInfoWindow();
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(bigIsland));
+
+        LatLng konaBrewery = new LatLng(19.64308, -155.99784);
+        mMap.addMarker(new MarkerOptions().position(konaBrewery).title("Check").snippet("check")).showInfoWindow();
+
+
+        // TODO: replace brewsArrayList with generic attractionsArrayList
+        // For attraction in attractionsArrayList, place a marker on the map
+
+        if (!(null == brewsArrayList)) {
+            for (int counter = 0; counter < brewsArrayList.size(); counter++) {
+                LatLng attractionLatLng = new LatLng(brewsArrayList.get(counter).getLatitude(), brewsArrayList.get(counter).getLongitude());
+                mMap.addMarker(new MarkerOptions()
+                        .position(attractionLatLng)
+                        .title(brewsArrayList.get(1).getTitle())
+                        .snippet(brewsArrayList.get(1).getSnippet()))
+                        .showInfoWindow();
+            }
+        } else {
+            Log.i("for loop", "BREWSARRAYLIST IS NULL");
+        }
+
     }
 }
