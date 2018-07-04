@@ -7,8 +7,11 @@ import java.util.ArrayList;
 
 public class BrewsFragment extends Fragment {
 
-    public static BrewsFragment newInstance() {
+    public BrewsFragment() {
+        // Required empty public constructor
+    }
 
+    public static BrewsFragment newInstance() {
 
         Log.i("brews_fragment", "BREWS NEW INSTANCE");
         final ArrayList<Attraction> attractionArrayList = new ArrayList<>();
