@@ -1,11 +1,19 @@
 package com.example.android.tourguide;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -157,22 +166,30 @@ public class MainActivity extends AppCompatActivity
 
     public void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+
+        Bitmap brewsBitmap = svgToBitmap(this, R.drawable.ic_maki_beer_15);
+        Bitmap snorkelBitmap = svgToBitmap(this, R.drawable.ic_sea_turtle);
+        Bitmap nationalParksBitmap = svgToBitmap(this, R.drawable.ic_starr_gazania_rigens_var);
+        Bitmap pokeBitmap = svgToBitmap(this, R.drawable.ic_maki_sushi_15);
+        Bitmap luauBitmap = svgToBitmap(this, R.drawable.ic_coconut_umbrella_straw);
+        Bitmap lavaBitmap = svgToBitmap(this, R.drawable.ic_maki_volcano_15);
+
         mMap.setMinZoomPreference(9);
         LatLng bigIsland = new LatLng(19.5429, -155.6659);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(bigIsland));
 
         if (categoryTag == 1 || categoryTag == 0) {
-            setMapMarkers(snorkelArrayList);
+            setMapMarkers(snorkelArrayList, snorkelBitmap);
         } else if (categoryTag == 2) {
-            setMapMarkers(nationalParksArrayList);
+            setMapMarkers(nationalParksArrayList, nationalParksBitmap);
         } else if (categoryTag == 3) {
-            setMapMarkers(pokeArrayList);
+            setMapMarkers(pokeArrayList, pokeBitmap);
         } else if (categoryTag == 4) {
-            setMapMarkers(brewsArrayList);
+            setMapMarkers(brewsArrayList, brewsBitmap);
         }
     }
 
-    public void setMapMarkers(ArrayList<Attraction> selectedCategoryArrayList) {
+    public void setMapMarkers(ArrayList<Attraction> selectedCategoryArrayList, Bitmap bitmap) {
         if (selectedCategoryArrayList == null) {
             return;
         }
@@ -180,12 +197,34 @@ public class MainActivity extends AppCompatActivity
             for (int i = 0; i < selectedCategoryArrayList.size(); i++) {
                 LatLng attractionLatLng = new LatLng(selectedCategoryArrayList.get(i).getLatitude(), selectedCategoryArrayList.get(i).getLongitude());
                 mMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                         .position(attractionLatLng)
                         .title(selectedCategoryArrayList.get(i).getTitle())
                         .snippet(selectedCategoryArrayList.get(i).getSnippet()))
                         .showInfoWindow();
             }
         }
+    }
+
+    private static Bitmap svgToBitmap (Context context, int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
+        if (drawable instanceof BitmapDrawable) {
+            return BitmapFactory.decodeResource(context.getResources(), drawableId);
+        } else if (drawable instanceof VectorDrawable) {
+            return svgToBitmap((VectorDrawable) drawable);
+        } else {
+            throw new IllegalArgumentException("Unsupported drawable type");
+        }
+    }
+
+    private static Bitmap svgToBitmap (VectorDrawable vectorImage) {
+        Bitmap bitmap = Bitmap.createBitmap(vectorImage.getIntrinsicWidth(),
+                vectorImage.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorImage.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorImage.draw(canvas);
+        Log.i("svgToBitmap", "BITMAP");
+        return bitmap;
     }
 }
 
