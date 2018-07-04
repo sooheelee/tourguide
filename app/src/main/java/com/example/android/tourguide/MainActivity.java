@@ -79,7 +79,20 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+
+                String categoryInformation = "Map is interactive. Top left menu has filtering options.";
+
+                if (categoryTag == 1) {
+                    categoryInformation = "All beaches are public in Hawaii.";
+                } else if (categoryTag == 2) {
+                    categoryInformation = "A hike to active lava can take all day. Check current lava activity before planning.";
+                } else if (categoryTag == 3) {
+                    categoryInformation = "List includes stores with to-go poké. Most of these also pack cooked rice.";
+                } else if (categoryTag == 4) {
+                    categoryInformation = "Check out unusual brews with coconut and local tropical fruits.";
+                }
+
+                Snackbar.make(view, categoryInformation, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
