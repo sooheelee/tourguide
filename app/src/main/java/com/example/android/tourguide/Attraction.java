@@ -23,7 +23,7 @@ public class Attraction {
         mContext = context;
     }
 
-    public Attraction(String title, String snippet, double latitude, double longitude, int imageResourceID) {
+    public Attraction(String title, double latitude, double longitude, String snippet, int imageResourceID) {
         mTitle = title;
         mSnippet = snippet;
         mLat = latitude;
@@ -38,7 +38,7 @@ public class Attraction {
         mImageResourceID = imageResourceID;
     }
 
-    public Attraction(String title, String snippet, double latitude, double longitude) {
+    public Attraction(String title, double latitude, double longitude, String snippet) {
         mTitle = title;
         mSnippet = snippet;
         mLat = latitude;

@@ -38,7 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     public static GoogleMap mMap;
     public static SupportMapFragment sMapFragment;
@@ -173,27 +173,6 @@ public class MainActivity extends AppCompatActivity
         Log.i("onMapReady", "MAP IS READY");
         mMap = googleMap;
         setUpMap();
-
-        if (mMap != null) {
-            //        mMap.setInfoWindowAdapter((new GoogleMap.InfoWindowAdapter() {
-//            @Override
-//            public View getInfoWindow(Marker marker) {
-//                return null;
-//            }
-//
-//            @Override
-//            public View getInfoContents(Marker marker) {
-//
-//                View v = getLayoutInflater().inflate(R.layout.custom_info, null);
-//                TextView tvTitle = findViewById(R.id.title);
-//                TextView tvSnippet = findViewById(R.id.snippet);
-//
-//                tvTitle.setText("FOO");
-//                tvSnippet.setText("BAR");
-//                return v;
-//            }
-//        }));
-        }
     }
 
     public void setUpMap() {
@@ -225,8 +204,7 @@ public class MainActivity extends AppCompatActivity
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                         .position(attractionLatLng)
                         .title(selectedCategoryArrayList.get(i).getTitle())
-                        .snippet(selectedCategoryArrayList.get(i).getSnippet()))
-                        .showInfoWindow();
+                        .snippet(selectedCategoryArrayList.get(i).getSnippet()));
             }
         }
     }
@@ -252,6 +230,39 @@ public class MainActivity extends AppCompatActivity
         return bitmap;
     }
 
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Log.i("onMarkerClick", "MARKER IS CLICKED");
+        return true;
+    }
 
+//            if (mMap != null) {
+        //        mMap.setInfoWindowAdapter((new GoogleMap.InfoWindowAdapter() {
+//            @Override
+//            public View getInfoWindow(Marker marker) {
+//                return null;
+//            }
+//
+//            @Override
+//            public View getInfoContents(Marker marker) {
+//
+//                View v = getLayoutInflater().inflate(R.layout.custom_info, null);
+//                TextView tvTitle = findViewById(R.id.title);
+//                TextView tvSnippet = findViewById(R.id.snippet);
+//
+//                tvTitle.setText("FOO");
+//                tvSnippet.setText("BAR");
+//                return v;
+//            }
+//        }));
+//    }
+
+//    public View
+//    mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+//
+//        @Override
+//                public View getInfoWindow(Marker)
+//
+//    });
 }
 

@@ -1,6 +1,7 @@
 //package com.example.android.tourguide;
 //
 //import android.content.Context;
+//import android.support.v7.app.AppCompatActivity;
 //import android.view.LayoutInflater;
 //import android.view.View;
 //import android.widget.TextView;
@@ -8,7 +9,8 @@
 //import com.google.android.gms.maps.GoogleMap;
 //import com.google.android.gms.maps.model.Marker;
 //
-//public class AttractionAdapter implements GoogleMap.InfoWindowAdapter{
+//public class AttractionAdapter extends AppCompatActivity implements
+//        GoogleMap.InfoWindowAdapter {
 //
 //    private final View mWindow;
 //    private Context mContext;
@@ -49,4 +51,6 @@
 //        renderText(marker, mWindow);
 //        return null;
 //    }
+//
+//
 //}
