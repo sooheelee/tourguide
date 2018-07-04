@@ -45,21 +45,6 @@ public class BrewsFragment extends Fragment {
 
         Log.i("brews_fragment", "BREWS ON CREATE VIEW");
 
-//        final WeakHashMap mMarkers = new WeakHashMap<Marker, String>();
-//        mMarkers.put(marker, attractionId);
-//
-//        ImageView imageView = rootView.findViewById(R.id.custom_image);
-//        TextView tvTitle = rootView.findViewById(R.id.title);
-//        TextView tvSnippet = rootView.findViewById(R.id.snippet);
-//
-//        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//            @Override
-//            public boolean onMarkerClick(Marker marker) {
-//                String attractionId = mMarkers.get(marker);
-//                marker.showInfoWindow();
-//                return false;
-//            }
-//        });
     return rootView;
     }
 }

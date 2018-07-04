@@ -13,6 +13,7 @@ public class Attraction {
     private double mLng;
     private Context mContext;
     private int mImageResourceID = NO_IMAGE_PROVIDED;
+    private int mTag;
 
     private static final int NO_IMAGE_PROVIDED = -1;
     private static final double[] NO_LAT_LNG = {19.00000, -155.00000};
@@ -29,6 +30,7 @@ public class Attraction {
         mLat = latitude;
         mLng = longitude;
         mImageResourceID = imageResourceID;
+        mTag = getTag();
     }
 
     public Attraction(String title, double latitude, double longitude, int imageResourceID) {
@@ -36,6 +38,7 @@ public class Attraction {
         mLat = latitude;
         mLng = longitude;
         mImageResourceID = imageResourceID;
+        mTag = getTag();
     }
 
     public Attraction(String title, double latitude, double longitude, String snippet) {
@@ -43,12 +46,14 @@ public class Attraction {
         mSnippet = snippet;
         mLat = latitude;
         mLng = longitude;
+        mTag = getTag();
     }
 
     public Attraction(String title, double latitude, double longitude) {
         mTitle = title;
         mLat = latitude;
         mLng = longitude;
+        mTag = getTag();
     }
 
     @Override
@@ -60,6 +65,7 @@ public class Attraction {
                 ", mLongitude=" + mLng +
                 ", mContext=" + mContext +
                 ", mImageResourceID=" + mImageResourceID +
+                ", mTag=" + mTag +
                 '}';
     }
 
@@ -68,5 +74,6 @@ public class Attraction {
     public double getLatitude() { return mLat; }
     public double getLongitude() { return mLng; }
     public int getImageResourceID() { return mImageResourceID; }
+    public int getTag() { return mTag; }
     public boolean imageResourceExists() { return mImageResourceID != NO_IMAGE_PROVIDED; }
 }

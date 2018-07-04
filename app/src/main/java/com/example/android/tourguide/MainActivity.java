@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -40,7 +39,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    public static GoogleMap mMap;
+    private GoogleMap mMap;
     public static SupportMapFragment sMapFragment;
 
     public static int categoryTag;
@@ -211,18 +210,34 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         if (selectedCategoryArrayList != null) {
+
+//            Marker testMarker1 = null;
+            ArrayList<Marker> markerArrayList = new ArrayList<>();
+
             for (int i = 0; i < selectedCategoryArrayList.size(); i++) {
                 LatLng attractionLatLng = new LatLng(selectedCategoryArrayList.get(i).getLatitude(), selectedCategoryArrayList.get(i).getLongitude());
-                mMap.addMarker(new MarkerOptions()
+                Marker marker = mMap.addMarker(new MarkerOptions()
                         .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
                         .position(attractionLatLng)
                         .title(selectedCategoryArrayList.get(i).getTitle())
                         .snippet(selectedCategoryArrayList.get(i).getSnippet()));
+                markerArrayList.add(marker);
             }
+
+            //           testMarker1.showInfoWindow();
+
+            for (Marker marker : markerArrayList) {
+
+                AttractionAdapter attractionAdapter = new AttractionAdapter(this);
+                mMap.setInfoWindowAdapter(attractionAdapter);
+
+                marker.showInfoWindow();
+            }
+
         }
     }
 
-    private static Bitmap svgToBitmap (Context context, int drawableId) {
+    private static Bitmap svgToBitmap(Context context, int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(context, drawableId);
         if (drawable instanceof BitmapDrawable) {
             return BitmapFactory.decodeResource(context.getResources(), drawableId);
@@ -233,7 +248,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private static Bitmap svgToBitmap (VectorDrawable vectorImage) {
+    private static Bitmap svgToBitmap(VectorDrawable vectorImage) {
         Bitmap bitmap = Bitmap.createBitmap(vectorImage.getIntrinsicWidth(),
                 vectorImage.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -243,39 +258,30 @@ public class MainActivity extends AppCompatActivity
         return bitmap;
     }
 
-    @Override
     public boolean onMarkerClick(Marker marker) {
         Log.i("onMarkerClick", "MARKER IS CLICKED");
-        return true;
+
+        mMap.setInfoWindowAdapter((new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                Log.i("onMarkerClick", "get info window");
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                Log.i("onMarkerClick", "get info contents");
+
+                View v = getLayoutInflater().inflate(R.layout.custom_info, null);
+                TextView tvTitle = findViewById(R.id.title);
+                TextView tvSnippet = findViewById(R.id.snippet);
+
+                tvTitle.setText("FOO");
+                tvSnippet.setText("BAR");
+                return v;
+            }
+        }));
+        return false;
     }
-
-//            if (mMap != null) {
-        //        mMap.setInfoWindowAdapter((new GoogleMap.InfoWindowAdapter() {
-//            @Override
-//            public View getInfoWindow(Marker marker) {
-//                return null;
-//            }
-//
-//            @Override
-//            public View getInfoContents(Marker marker) {
-//
-//                View v = getLayoutInflater().inflate(R.layout.custom_info, null);
-//                TextView tvTitle = findViewById(R.id.title);
-//                TextView tvSnippet = findViewById(R.id.snippet);
-//
-//                tvTitle.setText("FOO");
-//                tvSnippet.setText("BAR");
-//                return v;
-//            }
-//        }));
-//    }
-
-//    public View
-//    mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-//
-//        @Override
-//                public View getInfoWindow(Marker)
-//
-//    });
 }
 
