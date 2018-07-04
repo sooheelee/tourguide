@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -23,6 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,6 +32,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -48,12 +51,20 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
+    Bitmap brewsBitmap, snorkelBitmap, nationalParksBitmap, pokeBitmap, luauBitmap, lavaBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         sMapFragment = SupportMapFragment.newInstance();
+
+        brewsBitmap = svgToBitmap(this, R.drawable.ic_maki_beer_15);
+        snorkelBitmap = svgToBitmap(this, R.drawable.ic_sea_turtle);
+        nationalParksBitmap = svgToBitmap(this, R.drawable.ic_starr_gazania_rigens_var);
+        pokeBitmap = svgToBitmap(this, R.drawable.ic_maki_sushi_15);
+        luauBitmap = svgToBitmap(this, R.drawable.ic_coconut_umbrella_straw);
+        lavaBitmap = svgToBitmap(this, R.drawable.ic_maki_volcano_15);
 
         android.support.v4.app.FragmentManager sFragmentManager = getSupportFragmentManager();
         if (!sMapFragment.isAdded())
@@ -162,17 +173,31 @@ public class MainActivity extends AppCompatActivity
         Log.i("onMapReady", "MAP IS READY");
         mMap = googleMap;
         setUpMap();
+
+        if (mMap != null) {
+            //        mMap.setInfoWindowAdapter((new GoogleMap.InfoWindowAdapter() {
+//            @Override
+//            public View getInfoWindow(Marker marker) {
+//                return null;
+//            }
+//
+//            @Override
+//            public View getInfoContents(Marker marker) {
+//
+//                View v = getLayoutInflater().inflate(R.layout.custom_info, null);
+//                TextView tvTitle = findViewById(R.id.title);
+//                TextView tvSnippet = findViewById(R.id.snippet);
+//
+//                tvTitle.setText("FOO");
+//                tvSnippet.setText("BAR");
+//                return v;
+//            }
+//        }));
+        }
     }
 
     public void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-
-        Bitmap brewsBitmap = svgToBitmap(this, R.drawable.ic_maki_beer_15);
-        Bitmap snorkelBitmap = svgToBitmap(this, R.drawable.ic_sea_turtle);
-        Bitmap nationalParksBitmap = svgToBitmap(this, R.drawable.ic_starr_gazania_rigens_var);
-        Bitmap pokeBitmap = svgToBitmap(this, R.drawable.ic_maki_sushi_15);
-        Bitmap luauBitmap = svgToBitmap(this, R.drawable.ic_coconut_umbrella_straw);
-        Bitmap lavaBitmap = svgToBitmap(this, R.drawable.ic_maki_volcano_15);
 
         mMap.setMinZoomPreference(9);
         LatLng bigIsland = new LatLng(19.5429, -155.6659);
@@ -226,5 +251,7 @@ public class MainActivity extends AppCompatActivity
         Log.i("svgToBitmap", "BITMAP");
         return bitmap;
     }
+
+
 }
 
