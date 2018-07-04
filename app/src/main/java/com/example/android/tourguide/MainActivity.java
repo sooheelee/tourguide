@@ -18,9 +18,11 @@ import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -28,16 +30,15 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    SupportMapFragment sMapFragment;
-    //    String[] practiceObject = SOMETHING;
+    public static GoogleMap mMap;
+    public static SupportMapFragment sMapFragment;
+
+    public static int categoryTag;
     public static ArrayList<Attraction> brewsArrayList;
     public static ArrayList<Attraction> attractionsArrayList;
 
-    //    public static MapsActivity mMap;
     NavigationView navigationView = null;
     Toolbar toolbar = null;
-//    String[] SOMETHING = {"Yo", "Yo", "Ma", "20.0248", "-155.6615"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentManager sFragmentManager = getSupportFragmentManager();
         if (!sMapFragment.isAdded())
             sFragmentManager.beginTransaction().add(R.id.map, sMapFragment).commit();
+
+        BrewsFragment.newInstance();
 
         setContentView(R.layout.activity_main);
 
@@ -115,36 +118,37 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (sMapFragment.isAdded())
-            sFragmentManager.beginTransaction().hide(sMapFragment).commit();
-
         if (id == R.id.category_snorkel_spots) {
+            categoryTag = 1;
 
-            if (!sMapFragment.isAdded())
-                sFragmentManager.beginTransaction().add(R.id.map, sMapFragment).commit();
-            else
-                sFragmentManager.beginTransaction().show(sMapFragment).commit();
+            //TODO
 
+            sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_national_parks) {
-            sFragmentManager.beginTransaction().remove(sMapFragment).commit();
-            sFragmentManager.beginTransaction().add(R.id.map, new BrewsFragment()).commit();
+            categoryTag = 2;
 
+            //TODO
+
+            sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_poke) {
+            categoryTag = 3;
 
+            //TODO
+
+            sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_local_brews) {
-            BrewsFragment.newInstance();
-            Log.i("brews_category", "BREWS: " + brewsArrayList.toString());
-
-            int count = 0;
-            int arrayListSize = brewsArrayList.size();
-            while (arrayListSize > count) {
-                Log.i("brew_category", "BREWS COUNT " + Integer.valueOf(count).toString());
-                count++;
-            }
-
-            for (Attraction attraction : brewsArrayList) {
-            }
-
+            categoryTag = 4;
+            sFragmentManager.beginTransaction().show(sMapFragment).commit();
+//
+//            Log.i("brews_category", "BREWS: " + brewsArrayList.toString());
+//
+//            int count = 0;
+//            int arrayListSize = brewsArrayList.size();
+//            while (arrayListSize > count) {
+//                Log.i("brew_category", "BREWS COUNT " + Integer.valueOf(count).toString());
+//                count++;
+//            }
+            sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_luau) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.gohawaii.com/islands/hawaii-big-island/things-to-do/land-activities/Luau"));
             startActivity(intent);
@@ -166,33 +170,37 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setUpMap() {
-        Log.i("setUpMap", "MAP IS SETTING UP");
+
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
         mMap.setMinZoomPreference(9);
-
         LatLng bigIsland = new LatLng(19.5429, -155.6659);
-        mMap.addMarker(new MarkerOptions().position(bigIsland).title("Island of Hawaii").snippet("YO!")).showInfoWindow();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(bigIsland));
 
-        LatLng konaBrewery = new LatLng(19.64308, -155.99784);
-        mMap.addMarker(new MarkerOptions().position(konaBrewery).title("Check").snippet("check")).showInfoWindow();
-
-
+        Log.i("setUpMap", "MAP IS SETTING UP");
         // TODO: replace brewsArrayList with generic attractionsArrayList
-        // For attraction in attractionsArrayList, place a marker on the map
+        // For attraction in attractionsArrayList, place a marker on the map\
 
-        if (!(null == brewsArrayList)) {
-            for (int counter = 0; counter < brewsArrayList.size(); counter++) {
-                LatLng attractionLatLng = new LatLng(brewsArrayList.get(counter).getLatitude(), brewsArrayList.get(counter).getLongitude());
-                mMap.addMarker(new MarkerOptions()
+        if (categoryTag == 4) {
+            for (int i = 0; i < brewsArrayList.size(); i++) {
+                LatLng attractionLatLng = new LatLng(brewsArrayList.get(i).getLatitude(), brewsArrayList.get(i).getLongitude());
+                Marker marker = mMap.addMarker(new MarkerOptions()
                         .position(attractionLatLng)
-                        .title(brewsArrayList.get(1).getTitle())
-                        .snippet(brewsArrayList.get(1).getSnippet()))
-                        .showInfoWindow();
+                        .title(brewsArrayList.get(i).getTitle())
+                        .snippet(brewsArrayList.get(i).getSnippet()));
+//                        .showInfoWindow();
+
+                marker.showInfoWindow();;
             }
         } else {
-            Log.i("for loop", "BREWSARRAYLIST IS NULL");
+            Log.i("FOR LOOP", "BREWSARRAYLIST IS NULL");
         }
+
+//        LatLng bigIsland = new LatLng(19.5429, -155.6659);
+//        mMap.addMarker(new MarkerOptions().position(bigIsland).title("Island of Hawaii").snippet("YO!")).showInfoWindow();
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(bigIsland));
+//
+//        LatLng konaBrewery = new LatLng(19.64308, -155.99784);
+//        mMap.addMarker(new MarkerOptions().position(konaBrewery).title("Check").snippet("check")).showInfoWindow();
 
     }
 }
