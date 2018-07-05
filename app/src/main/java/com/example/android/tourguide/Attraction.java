@@ -18,10 +18,17 @@ public class Attraction {
     private static final int NO_IMAGE_PROVIDED = -1;
     private static final double[] NO_LAT_LNG = {19.00000, -155.00000};
 
-    public void TextView(Context context) {
+    public Attraction(Context context, String s) {
+    }
+
+    public void Attraction(Context context) {
         mTitle = "";
         mSnippet = "";
         mContext = context;
+        mLat = 0;
+        mLng = 0;
+        mImageResourceID = -1;
+        mTag = 0;
     }
 
     public Attraction(String title, double latitude, double longitude, String snippet, int imageResourceID) {
