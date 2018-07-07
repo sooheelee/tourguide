@@ -3,15 +3,11 @@ package com.example.android.tourguide;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -24,11 +20,20 @@ public class AttractionAdapter implements GoogleMap.InfoWindowAdapter {
         context = ctx;
     }
 
+    // Required empty public constructor
     @Override
     public View getInfoWindow(Marker marker) {
         return null;
     }
 
+    /**
+     * Generates custom layout for map marker pop-up info windows. Changes layout parameters for
+     * different aspect ratio images, e.g. portrait, landscape or panoramic. If no image is associated
+     * with attraction, then gracefully removes this portion of the layout.
+     *
+     * @param marker
+     * @return
+     */
     @Override
     public View getInfoContents(Marker marker) {
 
@@ -41,11 +46,11 @@ public class AttractionAdapter implements GoogleMap.InfoWindowAdapter {
 
         tvTitle.setText(marker.getTitle());
         tvTitle.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
-        tvTitle.setTextSize(20);
+        tvTitle.setTextSize(context.getResources().getDimension(R.dimen.tv_title_textsize));
 
         tvSnippet.setText(marker.getSnippet());
         tvSnippet.setTextColor(ContextCompat.getColor(context, android.R.color.black));
-        tvSnippet.setTextSize(16);
+        tvSnippet.setTextSize(context.getResources().getDimension(R.dimen.tv_snippet_textsize));
 
         ArrayList<Attraction> currentCategory = null;
 
@@ -83,5 +88,5 @@ public class AttractionAdapter implements GoogleMap.InfoWindowAdapter {
             }
         }
         return view;
-     }
+    }
 }

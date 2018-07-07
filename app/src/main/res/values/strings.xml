@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Tour Guide</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,6 +8,89 @@
     <string name="reset_settings">Reset zoom</string>
     <string name="location_big_island">Island of Hawai\'i</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="zoom_big_island_lat">19.6000</string>
+    <string name="zoom_big_island_lng">-155.5500</string>
+    <string name="zoom_big_island_zoom_level">8.8</string>
+
+    <string name="info_start">Map is interactive.</string>
+    <string name="info_snorkel">All beaches are public in Hawaii.</string>
+    <string name="info_parks">A hike to active lava can take all day. Check current lava activity.</string>
+    <string name="info_poke">Includes stores with to-go poké. Most also pack cooked rice.</string>
+    <string name="info_brews">Check out unusual brews with coconut and tropical fruit.</string>
+
+    <string name="luau_gohawaii_url">https://www.gohawaii.com/islands/hawaii-big-island/things-to-do/land-activities/Luau</string>
+    <string name="lava_usgs_url">https://volcanoes.usgs.gov/volcanoes/kilauea/multimedia_maps.html</string>
+
+    <string name="illegal_argument_exception_svgtobitmap">Unsupported drawable type</string>
+
+    <string name="brews_kona_title">Kona Brewing Company</string>
+    <string name="brews_kona_lat">19.64308</string>
+    <string name="brews_kona_lng">-155.99784</string>
+    <string name="brews_kona_snippet" tools:ignore="TypographyDashes">74 Pawai Pl, Kailua-Kona\n11am-10pm daily\n(808) 334-2739</string>
+    <string name="brews_big_island_title">Big Island Brewhaus</string>
+    <string name="brews_big_island_lat">20.0248</string>
+    <string name="brews_big_island_lng">-155.6615</string>
+    <string name="brews_big_island_snippet" tools:ignore="TypographyDashes">64-1066 Mamalahoa Hwy, Waimea\n11am-8:30pm M-Sat, noon-8pm Sun\n(808) 887-1717</string>
+    <string name="brews_mehana_title">Mehana Brewing Company</string>
+    <string name="brews_mehana_lat">19.7061</string>
+    <string name="brews_mehana_lng">-155.0692</string>
+    <string name="brews_mehana_snippet" tools:ignore="TypographyDashes">275 E Kawili St, Hilo\nTasting Room opens noon M-Sat\nCloses between 4pm and 6pm\n(808) 934-8211</string>
+
+    <string name="poke_costco_title">Costco Wholesale</string>
+    <string name="poke_costco_lat">19.684998</string>
+    <string name="poke_costco_lng">-156.016477</string>
+    <string name="poke_costco_snippet" tools:ignore="TypographyDashes">73-5600 Maiau St, Kailua-Kona\n10AM-8:30PM M-F, 10AM-6PM Sat+Sun\n(808) 331-4800</string>
+    <string name="poke_sack_n_save_title">Sack N Save Kona</string>
+    <string name="poke_sack_n_save_lat">19.644461</string>
+    <string name="poke_sack_n_save_lng">-155.993327</string>
+    <string name="poke_sack_n_save_snippet" tools:ignore="TypographyDashes">75-5595 Palani Rd, Kailua-Kona\n5AM-12AM daily\n(808) 326-2729</string>
+    <string name="poke_safeway_title">Safeway</string>
+    <string name="poke_safeway_lat">19.646713</string>
+    <string name="poke_safeway_lng">-155.989921</string>
+    <string name="poke_safeway_snippet" tools:ignore="TypographyDashes">75-1027 Henry St, Kailua-Kona\nOpen 24 hours\n(808) 329-2207</string>
+    <string name="poke_umeke_grill_title">Umeke\'s Fishmarket Bar and Grill</string>
+    <string name="poke_umeke_grill_lat">19.6421</string>
+    <string name="poke_umeke_grill_lng">-156.0005</string>
+    <string name="poke_umeke_grill_snippet" tools:ignore="TypographyDashes">74-5563 Kaiwi St, Kailua-Kona\n11AM-9PM M-Sat, 11-5 Sun\n(808) 238-0571</string>
+    <string name="poke_umeke_lunch_title">Umeke\'s Poke Bowls And Local Style Lunch Plates</string>
+    <string name="poke_umeke_lunch_lat">19.6385</string>
+    <string name="poke_umeke_lunch_lng">-155.9911</string>
+    <string name="poke_umeke_lunch_snippet" tools:ignore="TypographyDashes">75-143 Hualalai Rd #105, Kailua-Kona\n10AM-5PM M-Sat, closed Sundays\n(808) 329-3050</string>
+
+    <string name="snorkel_kua_bay_title">Manini\'owali (Kua Bay)</string>
+    <string name="snorkel_kua_bay_lat">19.810249</string>
+    <string name="snorkel_kua_bay_lng">-156.006523</string>
+    <string name="snorkel_kua_bay_snippet" tools:ignore="TypographyDashes">723990 Mamalahoa Hwy, Kailua-Kona</string>
+    <string name="snorkel_makalawena_title">Makalawena Beach</string>
+    <string name="snorkel_makalawena_lat">19.791194</string>
+    <string name="snorkel_makalawena_lng">-156.028506</string>
+    <string name="snorkel_makalawena_snippet" tools:ignore="TypographyDashes">via Kekaha Kai Beach Park\nHI-19, Kailua-Kona</string>
+    <string name="snorkel_mahaiula_title">Mahai\'ula Beach</string>
+    <string name="snorkel_mahaiula_lat">19.7867</string>
+    <string name="snorkel_mahaiula_lng">-156.0400</string>
+    <string name="snorkel_mahaiula_snippet" tools:ignore="TypographyDashes">via Kekaha Kai Beach Park\nHI-19, Kailua-Kona</string>
+    <string name="snorkel_two_step_title">Two Step</string>
+    <string name="snorkel_two_step_lat">19.423212</string>
+    <string name="snorkel_two_step_lng">-155.911564</string>
+    <string name="snorkel_two_step_snippet" tools:ignore="TypographyDashes">Honaunau Beach Rd, Captain Cook</string>
+    <string name="snorkel_south_point_title">South Point Cliff Dive\n(Ka Lae Point)</string>
+    <string name="snorkel_south_point_lat">18.9136</string>
+    <string name="snorkel_south_point_lng">-155.6833</string>
+    <string name="snorkel_south_point_snippet" tools:ignore="TypographyDashes">Ka Lae Rd, Naalehu</string>
+
+    <string name="parks_volcano_title">Hawai\'i Volcanoes National Park</string>
+    <string name="parks_volcano_lat">19.4194</string>
+    <string name="parks_volcano_lng">-155.2885</string>
+    <string name="parks_volcano_snippet" tools:ignore="TypographyDashes">Kīlauea Visitor Center\n1 Crater Rim Drive, Volcano\n(808) 985-6000", R.drawable.lava_flowing_into_ocean</string>
+    <string name="parks_puuhonuao_title">Pu\'uhonua O Hōnaunau National Historical Park</string>
+    <string name="parks_puuhonuao_lat">19.4215</string>
+    <string name="parks_puuhonuao_lng">-155.9105</string>
+    <string name="parks_puuhonuao_snippet" tools:ignore="TypographyDashes">State Hwy 160, Hōnaunau\n(808) 328-2326</string>
+
+    <string name="tools_beach_text">Mahaiula Bay, Kaleaoa</string>
+    <string name="tools_beach_photo_text">Photo by J. Hess, April 2017</string>
+
+    <string name="drawer_iv_hawaii_description">Silhouette of Hawaiian Islands with Big Island highlighted</string>
+    <string name="drawer_tv_hawaii_title">Island of Hawai\'i</string>
+
 </resources>

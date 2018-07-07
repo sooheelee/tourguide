@@ -9,4 +9,16 @@
     <dimen name="image_aspect_short">300dp</dimen>
     <dimen name="image_pano_aspect_long">980dp</dimen>
     <dimen name="image_pano_aspect_short">300dp</dimen>
+    <dimen name="tv_title_textsize">8sp</dimen>
+    <dimen name="tv_snippet_textsize">6sp</dimen>
+
+    <dimen name="custom_info_window_iv_width">300dp</dimen>
+    <dimen name="custom_info_window_padding_top">4dp</dimen>
+    <dimen name="custom_info_window_text_left_right_padding">16dp</dimen>
+    <dimen name="custom_info_window_padding_bottom">8dp</dimen>
+    <dimen name="tools_custom_text_size_title">24sp</dimen>
+    <dimen name="tools_custom_text_size_snippet">18sp</dimen>
+    <dimen name="app_bar_fab_margin_bottom">54dp</dimen>
+    <dimen name="drawer_title_text">22sp</dimen>
+
 </resources>

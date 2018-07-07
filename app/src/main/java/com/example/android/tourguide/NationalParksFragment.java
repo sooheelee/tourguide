@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Custom object stores location information for attraction category national parks.
  */
 public class NationalParksFragment extends Fragment {
 
@@ -17,8 +18,17 @@ public class NationalParksFragment extends Fragment {
     public static NationalParksFragment newInstance() {
 
         final ArrayList<Attraction> attractionArrayList = new ArrayList<>();
-        attractionArrayList.add(new Attraction("Hawai'i Volcanoes National Park", 19.4194, -155.2885, "Kīlauea Visitor Center\n1 Crater Rim Drive, Volcano\n(808) 985-6000", R.drawable.lava_flowing_into_ocean));
-        attractionArrayList.add(new Attraction("Pu'uhonua O Hōnaunau National Historical Park", 19.4215, -155.9105, "State Hwy 160, Hōnaunau\n(808) 328-2326", R.drawable.puuhonua_o_honaunau));
+
+        // See note in BrewsFragment.java about why these are hardcoded.
+        attractionArrayList.add(new Attraction("Hawai'i Volcanoes National Park",
+                19.4194,
+                -155.2885,
+                "Kīlauea Visitor Center\n1 Crater Rim Drive, Volcano\n(808) 985-6000",
+                R.drawable.lava_flowing_into_ocean));
+        attractionArrayList.add(new Attraction("Pu'uhonua O Hōnaunau National Historical Park",
+                19.4215, -155.9105,
+                "State Hwy 160, Hōnaunau\n(808) 328-2326",
+                R.drawable.puuhonua_o_honaunau));
 
         MainActivity.nationalParksArrayList = attractionArrayList;
 

@@ -13,20 +13,20 @@
 
     <ImageView
         android:id="@+id/hawaii_silhouette"
-        android:scaleType="fitCenter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="Silhouette of Hawaiian Islands with Big Island highlighted"
-        app:srcCompat="@drawable/ic_hawaii_governor"
-        android:adjustViewBounds="false" />
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/drawer_iv_hawaii_description"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_hawaii_governor" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Island of Hawai'i"
-        android:textSize="22sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:text="@string/drawer_tv_hawaii_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/drawer_title_text" />
 
 </RelativeLayout>
