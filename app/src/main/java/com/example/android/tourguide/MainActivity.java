@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity
         for (Marker marker : markerArrayList) {
             AttractionAdapter attractionAdapter = new AttractionAdapter(this);
             mMap.setInfoWindowAdapter(attractionAdapter);
-            //           marker.showInfoWindow();
+//          marker.showInfoWindow();
         }
     }
 

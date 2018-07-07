@@ -3,11 +3,15 @@ package com.example.android.tourguide;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -63,10 +67,21 @@ public class AttractionAdapter implements GoogleMap.InfoWindowAdapter {
             }
             if (imageResourceId != -1) {
                 ivImagery.setImageResource(imageResourceId);
+                if (imageResourceId != 0) {
+                    int imageHeight = context.getResources().getDrawable(imageResourceId).getIntrinsicHeight();
+                    int imageWidth = context.getResources().getDrawable(imageResourceId).getIntrinsicWidth();
+                    if (imageHeight / imageWidth < 0.4) {
+                        ivImagery.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        ivImagery.setAdjustViewBounds(true);
+                    } else if (imageHeight / imageWidth >= 1.0) {
+                        ivImagery.getLayoutParams().height = (int) context.getResources().getDimension(R.dimen.image_aspect_long);
+                        ivImagery.getLayoutParams().width = (int) context.getResources().getDimension(R.dimen.image_aspect_short);
+                    }
+                }
             } else {
                 ivImagery.setVisibility(View.GONE);
             }
         }
         return view;
-    }
+     }
 }
