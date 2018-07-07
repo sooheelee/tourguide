@@ -2,9 +2,7 @@ package com.example.android.tourguide;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
