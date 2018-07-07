@@ -9,7 +9,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -23,7 +25,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,7 +38,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
     public static SupportMapFragment sMapFragment;
@@ -51,17 +52,21 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView = null;
     Toolbar toolbar = null;
     Bitmap brewsBitmap, snorkelBitmap, nationalParksBitmap, pokeBitmap, luauBitmap, lavaBitmap;
+    LatLng bigIsland;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        bigIsland = new LatLng(19.6000, -155.5500);
         sMapFragment = SupportMapFragment.newInstance();
 
         brewsBitmap = svgToBitmap(this, R.drawable.ic_maki_beer_15);
         snorkelBitmap = svgToBitmap(this, R.drawable.ic_sea_turtle);
         nationalParksBitmap = svgToBitmap(this, R.drawable.ic_starr_gazania_rigens_var);
         pokeBitmap = svgToBitmap(this, R.drawable.ic_maki_sushi_15);
+
+        // TODO: Add markers or clean this up.
         luauBitmap = svgToBitmap(this, R.drawable.ic_coconut_umbrella_straw);
         lavaBitmap = svgToBitmap(this, R.drawable.ic_maki_volcano_15);
 
@@ -133,8 +138,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.reset_settings) {
+            mMap.setMaxZoomPreference((float) 8.8);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(bigIsland));
+            sMapFragment.getMapAsync(this);
+            mMap.setMaxZoomPreference(30);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,19 +190,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        Log.i("onMapReady", "MAP IS READY");
         mMap = googleMap;
         setUpMap();
     }
 
     public void setUpMap() {
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-
-        mMap.setMinZoomPreference(9);
-        LatLng bigIsland = new LatLng(19.5429, -155.6659);
+        mMap.setMinZoomPreference((float) 8.8);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(bigIsland));
 
-        if (categoryTag == 1 || categoryTag == 0) {
+        if (categoryTag == 1) {
             setMapMarkers(snorkelArrayList, snorkelBitmap);
         } else if (categoryTag == 2) {
             setMapMarkers(nationalParksArrayList, nationalParksBitmap);
@@ -209,34 +214,25 @@ public class MainActivity extends AppCompatActivity
         if (selectedCategoryArrayList == null) {
             return;
         }
-        if (selectedCategoryArrayList != null) {
+        ArrayList<Marker> markerArrayList = new ArrayList<>();
 
-//            Marker testMarker1 = null;
-            ArrayList<Marker> markerArrayList = new ArrayList<>();
-
-            for (int i = 0; i < selectedCategoryArrayList.size(); i++) {
-                LatLng attractionLatLng = new LatLng(selectedCategoryArrayList.get(i).getLatitude(), selectedCategoryArrayList.get(i).getLongitude());
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
-                        .position(attractionLatLng)
-                        .title(selectedCategoryArrayList.get(i).getTitle())
-                        .snippet(selectedCategoryArrayList.get(i).getSnippet()));
-                markerArrayList.add(marker);
-            }
-
-            //           testMarker1.showInfoWindow();
-
-            for (Marker marker : markerArrayList) {
-
-                AttractionAdapter attractionAdapter = new AttractionAdapter(this);
-                mMap.setInfoWindowAdapter(attractionAdapter);
-
-                marker.showInfoWindow();
-            }
-
+        for (int i = 0; i < selectedCategoryArrayList.size(); i++) {
+            LatLng attractionLatLng = new LatLng(selectedCategoryArrayList.get(i).getLatitude(), selectedCategoryArrayList.get(i).getLongitude());
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap))
+                    .position(attractionLatLng)
+                    .title(selectedCategoryArrayList.get(i).getTitle())
+                    .snippet(selectedCategoryArrayList.get(i).getSnippet()));
+            markerArrayList.add(marker);
+        }
+        for (Marker marker : markerArrayList) {
+            AttractionAdapter attractionAdapter = new AttractionAdapter(this);
+            mMap.setInfoWindowAdapter(attractionAdapter);
+            //           marker.showInfoWindow();
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static Bitmap svgToBitmap(Context context, int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(context, drawableId);
         if (drawable instanceof BitmapDrawable) {
@@ -256,32 +252,6 @@ public class MainActivity extends AppCompatActivity
         vectorImage.draw(canvas);
         Log.i("svgToBitmap", "BITMAP");
         return bitmap;
-    }
-
-    public boolean onMarkerClick(Marker marker) {
-        Log.i("onMarkerClick", "MARKER IS CLICKED");
-
-        mMap.setInfoWindowAdapter((new GoogleMap.InfoWindowAdapter() {
-            @Override
-            public View getInfoWindow(Marker marker) {
-                Log.i("onMarkerClick", "get info window");
-                return null;
-            }
-
-            @Override
-            public View getInfoContents(Marker marker) {
-                Log.i("onMarkerClick", "get info contents");
-
-                View v = getLayoutInflater().inflate(R.layout.custom_info, null);
-                TextView tvTitle = findViewById(R.id.title);
-                TextView tvSnippet = findViewById(R.id.snippet);
-
-                tvTitle.setText("FOO");
-                tvSnippet.setText("BAR");
-                return v;
-            }
-        }));
-        return false;
     }
 }
 

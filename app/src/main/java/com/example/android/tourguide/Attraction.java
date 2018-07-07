@@ -56,13 +56,6 @@ public class Attraction {
         mTag = getTag();
     }
 
-    public Attraction(String title, double latitude, double longitude) {
-        mTitle = title;
-        mLat = latitude;
-        mLng = longitude;
-        mTag = getTag();
-    }
-
     @Override
     public String toString() {
         return "Attraction{" +
