@@ -130,6 +130,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //populate strings
+        BrewsFragment bf = new BrewsFragment(getResources());
+        brewsArrayList = bf.attractionArrayList;
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open,
@@ -207,9 +211,8 @@ public class MainActivity extends AppCompatActivity
             categoryTag = 3;
             sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_local_brews) {
-            BrewsFragment.newInstance();
+            //BrewsFragment.newInstance();
             categoryTag = 4;
-            sFragmentManager.beginTransaction().show(sMapFragment).commit();
             sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_luau) {
             Intent intent = new Intent(Intent.ACTION_VIEW,

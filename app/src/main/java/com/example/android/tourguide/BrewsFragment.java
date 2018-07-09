@@ -1,6 +1,7 @@
 package com.example.android.tourguide;
 
 
+import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
@@ -9,15 +10,12 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  * Custom object storing location information for attraction category local breweries.
  */
-public class BrewsFragment extends Fragment {
+public class BrewsFragment {
 
-    public BrewsFragment() {
-        // Required empty public constructor
-    }
+    public ArrayList<Attraction> attractionArrayList;
 
-    public static BrewsFragment newInstance() {
-
-        final ArrayList<Attraction> attractionArrayList = new ArrayList<>();
+    public BrewsFragment(Resources resources) {
+        attractionArrayList = new ArrayList<>();
 
         // These hardcoded values are stored as string resources in the strings.xml. However, when
         // using strings resources here, either with getResources().getString() or with
@@ -26,7 +24,7 @@ public class BrewsFragment extends Fragment {
         // OR (ii) MainActivity errors with "non-static method newInstance() cannot be referenced from a static context".
         // Using a private Context context variable, e.g. 'context.getResources', allows build but then
         // subsequently crashes app. Next thing to try is importing json format data.
-        attractionArrayList.add(new Attraction("Kona Brewing Company",
+        attractionArrayList.add(new Attraction(resources.getString(R.string.brews_kona_title),
                 19.64308, -155.99784,
                 "74 Pawai Pl, Kailua-Kona\n11am-10pm, daily\n(808) 334-2739",
                 R.drawable.kona_brewing));
@@ -36,10 +34,5 @@ public class BrewsFragment extends Fragment {
         attractionArrayList.add(new Attraction("Mehana Brewing Company",
                 19.7061, -155.0692,
                 "275 E Kawili St, Hilo\nTasting Room opens noon M-Sat; closes between 4pm and 6pm\n(808) 934-8211"));
-
-        MainActivity.brewsArrayList = attractionArrayList;
-
-        BrewsFragment fragment = new BrewsFragment();
-        return fragment;
     }
 }
