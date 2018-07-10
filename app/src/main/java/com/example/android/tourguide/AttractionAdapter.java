@@ -48,8 +48,10 @@ public class AttractionAdapter implements GoogleMap.InfoWindowAdapter {
         tvTitle.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));
         tvTitle.setTextSize(context.getResources().getDimension(R.dimen.tv_title_textsize));
 
-        tvSnippet.setText(marker.getSnippet());
         tvSnippet.setTextColor(ContextCompat.getColor(context, android.R.color.black));
+        String snippetParagraph = marker.getSnippet();
+        snippetParagraph = snippetParagraph.replaceAll(", ", "\n");
+        tvSnippet.setText(snippetParagraph);
         tvSnippet.setTextSize(context.getResources().getDimension(R.dimen.tv_snippet_textsize));
 
         ArrayList<Attraction> currentCategory = null;

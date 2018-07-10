@@ -130,9 +130,14 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //populate strings
-        BrewsFragment bf = new BrewsFragment(getResources());
-        brewsArrayList = bf.attractionArrayList;
+        BrewsFragment brews = new BrewsFragment(getResources());
+        brewsArrayList = brews.attractionArrayList;
+        NationalParksFragment nationalParks = new NationalParksFragment(getResources());
+        nationalParksArrayList = nationalParks.attractionArrayList;
+        PokeFragment poke = new PokeFragment(getResources());
+        pokeArrayList = poke.attractionArrayList;
+        SnorkelFragment snorkel = new SnorkelFragment(getResources());
+        snorkelArrayList = snorkel.attractionArrayList;
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -194,24 +199,19 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        android.support.v4.app.FragmentManager sFragmentManager = getSupportFragmentManager();
         mMap.clear();
         int id = item.getItemId();
 
         if (id == R.id.category_snorkel_spots) {
-            SnorkelFragment.newInstance();
             categoryTag = 1;
             sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_national_parks) {
-            NationalParksFragment.newInstance();
             categoryTag = 2;
             sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_poke) {
-            PokeFragment.newInstance();
             categoryTag = 3;
             sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_local_brews) {
-            //BrewsFragment.newInstance();
             categoryTag = 4;
             sMapFragment.getMapAsync(this);
         } else if (id == R.id.category_luau) {

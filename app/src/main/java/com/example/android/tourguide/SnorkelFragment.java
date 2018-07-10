@@ -1,6 +1,7 @@
 package com.example.android.tourguide;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,45 +13,39 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
  * Custom object stores location information for attraction category snorkeling spots.
  */
-public class SnorkelFragment extends Fragment {
+public class SnorkelFragment {
 
-    public SnorkelFragment() {
-        // Required empty public constructor
-    }
+    ArrayList<Attraction> attractionArrayList;
 
-    public static SnorkelFragment newInstance() {
+    public SnorkelFragment(Resources resources) {
+        attractionArrayList = new ArrayList<>();
 
-        Log.i("snorkel_fragment", "SNORKEL NEW INSTANCE");
-
-        // See note in BrewsFragment.java about why these are hardcoded.
-        final ArrayList<Attraction> attractionArrayList = new ArrayList<>();
-        attractionArrayList.add(new Attraction("Manini'owali (Kua Bay)",
-                19.810249, -156.006523,
-                "723990 Mamalahoa Hwy, Kailua-Kona",
+        attractionArrayList.add(new Attraction(resources.getString(R.string.snorkel_kua_bay_title),
+                Double.parseDouble(resources.getString(R.string.snorkel_kua_bay_lat)),
+                Double.parseDouble(resources.getString(R.string.snorkel_kua_bay_lng)),
+                resources.getString(R.string.snorkel_kua_bay_snippet),
                 R.drawable.kua_bay));
-        attractionArrayList.add(new Attraction("Makalawena Beach",
-                19.791194, -156.028506,
-                "via Kekaha Kai Beach Park\nHI-19, Kailua-Kona",
+        attractionArrayList.add(new Attraction(resources.getString(R.string.snorkel_makalawena_title),
+                Double.parseDouble(resources.getString(R.string.snorkel_makalawena_lat)),
+                Double.parseDouble(resources.getString(R.string.snorkel_makalawena_lng)),
+                resources.getString(R.string.snorkel_makalawena_snippet),
                 R.drawable.pano_secluded_beach));
-        attractionArrayList.add(new Attraction("Mahai'ula Beach",
-                19.7867, -156.0400,
-                "via Kekaha Kai Beach Park\nHI-19, Kailua-Kona",
+        attractionArrayList.add(new Attraction(resources.getString(R.string.snorkel_mahaiula_title),
+                Double.parseDouble(resources.getString(R.string.snorkel_mahaiula_lat)),
+                Double.parseDouble(resources.getString(R.string.snorkel_mahaiula_lng)),
+                resources.getString(R.string.snorkel_mahaiula_snippet),
                 R.drawable.pano_beach));
-        attractionArrayList.add(new Attraction("Two Step",
-                19.423212, -155.911564,
-                "Honaunau Beach Rd, Captain Cook",
+        attractionArrayList.add(new Attraction(resources.getString(R.string.snorkel_two_step_title),
+                Double.parseDouble(resources.getString(R.string.snorkel_two_step_lat)),
+                Double.parseDouble(resources.getString(R.string.snorkel_two_step_lng)),
+                resources.getString(R.string.snorkel_two_step_snippet),
                 R.drawable.two_step));
-        attractionArrayList.add(new Attraction("South Point Cliff Dive\n(Ka Lae Point)",
-                18.9136, -155.6833,
-                "Ka Lae Rd, Naalehu",
+        attractionArrayList.add(new Attraction(resources.getString(R.string.snorkel_south_point_title),
+                Double.parseDouble(resources.getString(R.string.snorkel_south_point_lat)),
+                Double.parseDouble(resources.getString(R.string.snorkel_south_point_lng)),
+                resources.getString(R.string.snorkel_south_point_snippet),
                 R.drawable.dive_snorkel));
-
-        MainActivity.snorkelArrayList = attractionArrayList;
-
-        SnorkelFragment fragment = new SnorkelFragment();
-        return fragment;
     }
 }

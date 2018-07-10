@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/custom_info_window_iv_width"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -21,8 +21,8 @@
         android:paddingLeft="@dimen/custom_info_window_text_left_right_padding"
         android:paddingRight="@dimen/custom_info_window_text_left_right_padding"
         android:paddingTop="@dimen/custom_info_window_padding_bottom"
-        tools:text="@string/tools_beach_text"
-        tools:textSize="@dimen/tools_custom_text_size_title" />
+        android:textSize="@dimen/tools_custom_text_size_title"
+        tools:text="@string/tools_beach_text" />
 
     <TextView
         android:id="@+id/snippet"
@@ -32,6 +32,6 @@
         android:paddingLeft="@dimen/custom_info_window_text_left_right_padding"
         android:paddingRight="@dimen/custom_info_window_text_left_right_padding"
         android:paddingTop="@dimen/custom_info_window_padding_top"
-        tools:text="@string/tools_beach_photo_text"
-        tools:textSize="@dimen/tools_custom_text_size_snippet" />
+        android:textSize="@dimen/tools_custom_text_size_snippet"
+        tools:text="@string/tools_beach_photo_text" />
 </LinearLayout>
